@@ -23,15 +23,10 @@ jobs:
       run: wget http://buildbot.libretro.com/nightly/windows/x86_64/RetroArch.7z
     - name: Zip it up!    
       run: |
-          7z e RetroArch.7z -y && 7z a retroarch-windows.zip RetroArch\RetroArch-Win64\* -y
-          rm -rf RetroArch RetroArch.7z
-          
-  upload_game:
-    runs-on: ubuntu-latest
-    name: Publish Game
-    needs: [download_game]
-    
-    steps:
+          7z e RetroArch.7z -y
+          cd RetroArch/RetroArch-Win64/
+          7z a retroarch-windows.zip * -y
+          7z t retroarch-windows.zip -y
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io
       env:
