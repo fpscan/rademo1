@@ -23,8 +23,8 @@ jobs:
       run: wget http://buildbot.libretro.com/nightly/windows/x86_64/RetroArch.7z
     - name: Zip it up!    
       run: |
-          7z e RetroArch.7z
-          7z a -y retroarch-windows.zip RetroArch\RetroArch-Win64\*
+          7z e RetroArch.7z -y
+          7z a retroarch-windows.zip RetroArch\RetroArch-Win64\* -y
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io
       env:
