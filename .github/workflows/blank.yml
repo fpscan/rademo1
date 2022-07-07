@@ -27,8 +27,8 @@ jobs:
     - name: |
           7z e RetroArch.7z
           7z a retroarch-windows.zip RetroArch\RetroArch-Win64\*
-    - name: deploy to itch.io
-      uses: josephbmanley/butler-publish-itchio-action@master
+    - uses: josephbmanley/butler-publish-itchio-action@master
+      name: deploy to itch.io
       env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
           CHANNEL: windows
