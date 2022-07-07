@@ -14,7 +14,7 @@ on:
     if: github.actor == github.event.repository.owner.login
     
 jobs:
-  Itchio-nightly:
+  download_game:
     name: Download nightly from buildbot
     runs-on: ubuntu-latest
     
@@ -23,8 +23,15 @@ jobs:
       run: wget http://buildbot.libretro.com/nightly/windows/x86_64/RetroArch.7z
     - name: Zip it up!    
       run: |
-          7z e RetroArch.7z -y
-          7z a retroarch-windows.zip RetroArch\RetroArch-Win64\* -y
+          7z e RetroArch.7z -y && 7z a retroarch-windows.zip RetroArch\RetroArch-Win64\* -y
+          rm -rf RetroArch RetroArch.7z
+          
+  upload_game:
+    runs-on: ubuntu-latest
+    name: Publish Game
+    needs: [download_game]
+    
+    steps:
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io
       env:
