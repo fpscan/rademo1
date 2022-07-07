@@ -73,7 +73,7 @@ jobs:
           wget http://buildbot.libretro.com/nightly/linux/x86_64/RetroArch_Qt.7z
     - name: Zip it up!    
       run: |
-          7z e RetroArch.7z -y
+          7z e RetroArch_Qt.7z -y
           7z a retroarch-linux-x86_64-qt.zip * -y
           7z t retroarch-linux-x86_64-qt.zip -y
     - uses: josephbmanley/butler-publish-itchio-action@master
@@ -107,7 +107,7 @@ jobs:
           wget http://buildbot.libretro.com/nightly/linux/x86/RetroArch_Qt.7z
     - name: Zip it up!    
       run: |
-          7z e RetroArch.7z -y
+          7z e RetroArch_Qt.7z -y
           7z a retroarch-linux-x86-qt.zip * -y
           7z t retroarch-linux-x86-qt.zip -y
     - uses: josephbmanley/butler-publish-itchio-action@master
