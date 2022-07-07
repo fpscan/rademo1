@@ -19,7 +19,7 @@ jobs:
     
     steps:
     - name: windows x64
-      run: wget -P ~/windows/http://buildbot.libretro.com/nightly/windows/x86_64/RetroArch.7z
+      run: wget -p ~/windows/ http://buildbot.libretro.com/nightly/windows/x86_64/RetroArch.7z
     - name: Zip it up!    
       run: |
           cd ~/windows/
@@ -35,7 +35,7 @@ jobs:
           ITCH_USER: gadsby
           PACKAGE: retroarch-windows.zip
     - name: windows x86
-      run: wget -P ~/windowsx86/ http://buildbot.libretro.com/nightly/windows/x86/RetroArch.7z
+      run: wget -p ~/windowsx86/ http://buildbot.libretro.com/nightly/windows/x86/RetroArch.7z
     - name: Zip it up!    
       run: |
           cd ~/windowsx86/
@@ -51,7 +51,7 @@ jobs:
           ITCH_USER: gadsby
           PACKAGE: retroarch-windows-x86.zip
     - name: linux x64
-      run: wget ~/linux/ http://buildbot.libretro.com/nightly/linux/x86_64/RetroArch.7z
+      run: wget -p ~/linux/ http://buildbot.libretro.com/nightly/linux/x86_64/RetroArch.7z
     - name: Zip it up!    
       run: |
           cd ~/linux/
