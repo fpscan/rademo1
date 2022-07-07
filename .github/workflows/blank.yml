@@ -5,7 +5,6 @@ on:
     inputs:
       logLevel:
         description: 'Reason'     
-        required: true
         default: 'Release'
       tags:
         description: 'Tags' 
@@ -19,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: fetch linux cores
+    - name: windows x64
       run: wget http://buildbot.libretro.com/nightly/windows/x86_64/RetroArch.7z
     - name: Zip it up!    
       run: |
@@ -34,3 +33,35 @@ jobs:
           ITCH_GAME: RetroArchTest
           ITCH_USER: gadsby
           PACKAGE: retroarch-windows.zip
+    - name: windows x86
+      run: wget http://buildbot.libretro.com/nightly/windows/x86/RetroArch.7z
+    - name: Zip it up!    
+      run: |
+          7z e RetroArch.7z -y
+          7z a retroarch-windows-x86.zip * -y
+          7z t retroarch-windows-x86.zip -y
+    - uses: josephbmanley/butler-publish-itchio-action@master
+      name: deploy to itch.io
+      env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: windowsx86
+          ITCH_GAME: RetroArchTest
+          ITCH_USER: gadsby
+          PACKAGE: retroarch-windows-x86.zip
+    - name: linux x64
+      run: wget http://buildbot.libretro.com/nightly/linux/x86_64/RetroArch.7z
+    - name: Zip it up!    
+      run: |
+          7z e RetroArch.7z -y
+          7z a retroarch-linux.zip * -y
+          7z t retroarch-linux.zip -y
+    - uses: josephbmanley/butler-publish-itchio-action@master
+      name: deploy to itch.io
+      env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: linux
+          ITCH_GAME: RetroArchTest
+          ITCH_USER: gadsby
+          PACKAGE: retroarch-linux.zip
+
+
