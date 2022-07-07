@@ -24,7 +24,9 @@ jobs:
     - name: Zip it up!    
       run: |
           7z e RetroArch.7z -y
-          ls -al
+          7z a retroarch-windows.zip * -y
+          7z t retroarch-windows.zip -y
+          rm -- !(retroarch-windows.zip)
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io
       env:
