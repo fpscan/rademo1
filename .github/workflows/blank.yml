@@ -24,7 +24,7 @@ jobs:
     - name: Zip it up!    
       run: |
           7z e RetroArch.7z -y
-          cd RetroArch/RetroArch-Win64/
+          cd RetroArch\RetroArch-Win64\
           7z a retroarch-windows.zip * -y
           7z t retroarch-windows.zip -y
     - uses: josephbmanley/butler-publish-itchio-action@master
