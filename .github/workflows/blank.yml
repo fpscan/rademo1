@@ -26,7 +26,7 @@ jobs:
           7z e RetroArch.7z -y
           7z a retroarch-windows.zip * -y
           7z t retroarch-windows.zip -y
-          rm !(retroarch-windows.zip)
+          rm -v !("retroarch-windows.zip")
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io
       env:
