@@ -22,8 +22,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - run: |
-        wget http://buildbot.libretro.com/nightly/windows/x86_64/RetroArch.7z && 7z e RetroArch.7z -y && rm -rf RetroArch.7z && mv * retroarch_x64 && 7z a retroarch-windows.zip retroarch_x64/* -y
-        wget http://buildbot.libretro.com/nightly/windows/x86/RetroArch.7z && 7z e RetroArch.7z -y && rm -rf RetroArch.7z && mv * retroarch_x86 && 7z a retroarch-windows-x32.zip retroarch_x86/* -y 
+        mkdir retroarch_x64 && cd retroarch_x64 && wget http://buildbot.libretro.com/nightly/windows/x86_64/RetroArch.7z && 7z e RetroArch.7z -y && rm -rf RetroArch.7z && 7z a retroarch-windows.zip * -y
+        mkdir retroarch_x86 && cd retroarch_x86 && wget http://buildbot.libretro.com/nightly/windows/x86/RetroArch.7z && 7z e RetroArch.7z -y && rm -rf RetroArch.7z && 7z a retroarch-windows-x32.zip * -y 
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io for x64
       env:
