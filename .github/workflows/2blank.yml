@@ -1,0 +1,41 @@
+name: RetroArch Build 2
+
+on: 
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Reason'     
+        default: 'Release'
+      tags:
+        description: 'Tags' 
+  watch: # this is a hack that lets repo owners trigger a build by starring
+    types: [started]
+    if: github.actor == github.event.repository.owner.login
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - run: |
+        wget http://buildbot.libretro.com/nightly/windows/x86_64/RetroArch.7z && 7z e RetroArch.7z -y && rm -rf RetroArch.7z && mv * retroarch_x64 && 7z a retroarch-windows.zip retroarch_x64/* -y
+        wget http://buildbot.libretro.com/nightly/windows/x86/RetroArch.7z && 7z e RetroArch.7z -y && rm -rf RetroArch.7z && mv * retroarch_x86 && 7z a retroarch-windows-x32.zip retroarch_x86/* -y 
+    - uses: josephbmanley/butler-publish-itchio-action@master
+      name: deploy to itch.io for x86
+      env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: windowsx32
+          ITCH_GAME: RetroArchTest
+          ITCH_USER: gadsby
+          PACKAGE: retroarch_x64/retroarch-windows.zip
+    - name: deploy to itch.io for x64
+      env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: windowsx32
+          ITCH_GAME: RetroArchTest
+          ITCH_USER: gadsby
+          PACKAGE: retroarch_x86/retroarch-windows-x32.zip       
