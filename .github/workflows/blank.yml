@@ -3,14 +3,10 @@ name: RetroArch Build
 on: 
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Reason'     
-        default: 'Release'
-      tags:
-        description: 'Tags' 
-  watch: # this is a hack that lets repo owners trigger a build by starring
-    types: [started]
-    if: github.actor == github.event.repository.owner.login
+      version:
+        description: 'version'     
+        required: true
+        default: '1.10.3'
     
 jobs:
   download_game:
@@ -19,102 +15,18 @@ jobs:
     
     steps:
     - name: windows x64
-      run: wget http://buildbot.libretro.com/nightly/windows/x86_64/RetroArch.7z
+      run: wget http://buildbot.libretro.com/stable/${{ github.event.inputs.logLevel }}/windows/x86_64/RetroArch.7z
     - name: Zip it up!    
       run: |
           7z e RetroArch.7z -y
           rm -rf RetroArch.7z
-          7z a retroarch-windows-weekly.zip * -y
+          7z a retroarch-windows.zip * -y
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io
       env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: windows-weekly
+          CHANNEL: windows
           ITCH_GAME: RetroArchTest
           ITCH_USER: gadsby
           PACKAGE: retroarch-windows-weekly.zip
-    - name: windows x32
-      run: |
-          rm -rf * 
-          wget http://buildbot.libretro.com/nightly/windows/x86/RetroArch.7z
-    - name: Zip it up!    
-      run: |
-          7z e RetroArch.7z -y
-          rm -rf RetroArch.7z
-          7z a retroarch-windows-x32-weekly.zip * -y
-    - uses: josephbmanley/butler-publish-itchio-action@master
-      name: deploy to itch.io
-      env:
-          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: windowsx32-weekly
-          ITCH_GAME: RetroArchTest
-          ITCH_USER: gadsby
-          PACKAGE: retroarch-windows-x32-weekly.zip
-    - name: linux x64
-      run: |
-          rm -rf *
-          wget http://buildbot.libretro.com/nightly/linux/x86_64/RetroArch.7z
-    - name: Zip it up!    
-      run: |
-          7z e RetroArch.7z -y
-          rm -rf RetroArch.7z
-          7z a retroarch-linux-x86_64-weekly.zip * -y
-    - uses: josephbmanley/butler-publish-itchio-action@master
-      name: deploy to itch.io
-      env:
-          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: linux-x86_64
-          ITCH_GAME: RetroArchTest
-          ITCH_USER: gadsby
-          PACKAGE: retroarch-linux-x86_64-weekly.zip
-    - name: linux x64-qt
-      run: |
-          rm -rf *
-          wget http://buildbot.libretro.com/nightly/linux/x86_64/RetroArch_Qt.7z
-    - name: Zip it up!    
-      run: |
-          7z e RetroArch_Qt.7z -y
-          rm -rf RetroArch_Qt.7z
-          7z a retroarch-linux-x86_64-qt-weekly.zip * -y
-    - uses: josephbmanley/butler-publish-itchio-action@master
-      name: deploy to itch.io
-      env:
-          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: linux-x86_64-qt-weekly
-          ITCH_GAME: RetroArchTest
-          ITCH_USER: gadsby
-          PACKAGE: retroarch-linux-x86_64-qt-weekly.zip
-    - name: linux x86
-      run: |
-          rm -rf *
-          wget http://buildbot.libretro.com/nightly/linux/x86/RetroArch.7z
-    - name: Zip it up!    
-      run: |
-          7z e RetroArch.7z -y
-          rm -rf RetroArch.7z
-          7z a retroarch-linux-x86-weekly.zip * -y
-    - uses: josephbmanley/butler-publish-itchio-action@master
-      name: deploy to itch.io
-      env:
-          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: linux-x86-weekly
-          ITCH_GAME: RetroArchTest
-          ITCH_USER: gadsby
-          PACKAGE: retroarch-linux-x86-weekly.zip
-    - name: linux x86-qt
-      run: |
-          rm -rf *
-          wget http://buildbot.libretro.com/nightly/linux/x86/RetroArch_Qt.7z
-    - name: Zip it up!    
-      run: |
-          7z e RetroArch_Qt.7z -y
-          rm -rf RetroArch_Qt.7z
-          7z a retroarch-linux-x86-qt-weekly.zip * -y
-    - uses: josephbmanley/butler-publish-itchio-action@master
-      name: deploy to itch.io
-      env:
-          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: linux-x86-qt-weekly
-          ITCH_GAME: RetroArchTest
-          ITCH_USER: gadsby
-          PACKAGE: retroarch-linux-x86-qt-weekly.zip                              
+          VERSION: ${{ github.event.inputs.logLevel }}                           
