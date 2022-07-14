@@ -23,16 +23,16 @@ jobs:
     - name: Zip it up!    
       run: |
           7z e RetroArch.7z -y
-          7z a retroarch-windows.zip * -y
-          7z t retroarch-windows.zip -y
+          rm -rf RetroArch.7z
+          7z a retroarch-windows-weekly.zip * -y
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io
       env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: windows
+          CHANNEL: windows-weekly
           ITCH_GAME: RetroArchTest
           ITCH_USER: gadsby
-          PACKAGE: retroarch-windows.zip
+          PACKAGE: retroarch-windows-weekly.zip
     - name: windows x32
       run: |
           rm -rf * 
@@ -40,13 +40,13 @@ jobs:
     - name: Zip it up!    
       run: |
           7z e RetroArch.7z -y
-          7z a retroarch-windows-x32.zip * -y
-          7z t retroarch-windows-x32.zip -y
+          rm -rf RetroArch.7z
+          7z a retroarch-windows-x32-weekly.zip * -y
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io
       env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: windowsx32
+          CHANNEL: windowsx32-weekly
           ITCH_GAME: RetroArchTest
           ITCH_USER: gadsby
           PACKAGE: retroarch-windows-x32.zip
@@ -57,8 +57,8 @@ jobs:
     - name: Zip it up!    
       run: |
           7z e RetroArch.7z -y
-          7z a retroarch-linux-x86_64.zip * -y
-          7z t retroarch-linux-x86_64.zip -y
+          rm -rf RetroArch.7z
+          7z a retroarch-linux-x86_64-weekly.zip * -y
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io
       env:
@@ -66,7 +66,7 @@ jobs:
           CHANNEL: linux-x86_64
           ITCH_GAME: RetroArchTest
           ITCH_USER: gadsby
-          PACKAGE: retroarch-linux-x86_64.zip
+          PACKAGE: retroarch-linux-x86_64-weekly.zip
     - name: linux x64-qt
       run: |
           rm -rf *
@@ -74,13 +74,13 @@ jobs:
     - name: Zip it up!    
       run: |
           7z e RetroArch_Qt.7z -y
-          7z a retroarch-linux-x86_64-qt.zip * -y
-          7z t retroarch-linux-x86_64-qt.zip -y
+          rm -rf RetroArch_Qt.7z
+          7z a retroarch-linux-x86_64-qt-weekly.zip * -y
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io
       env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: linux-x86_64-qt
+          CHANNEL: linux-x86_64-qt-weekly
           ITCH_GAME: RetroArchTest
           ITCH_USER: gadsby
           PACKAGE: retroarch-linux-x86_64-qt.zip
@@ -91,16 +91,16 @@ jobs:
     - name: Zip it up!    
       run: |
           7z e RetroArch.7z -y
-          7z a retroarch-linux-x86.zip * -y
-          7z t retroarch-linux-x86.zip -y
+          rm -rf RetroArch.7z
+          7z a retroarch-linux-x86-weekly.zip * -y
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io
       env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: linux-x86
+          CHANNEL: linux-x86-weekly
           ITCH_GAME: RetroArchTest
           ITCH_USER: gadsby
-          PACKAGE: retroarch-linux-x86.zip
+          PACKAGE: retroarch-linux-x86-weekly.zip
     - name: linux x86-qt
       run: |
           rm -rf *
@@ -108,13 +108,13 @@ jobs:
     - name: Zip it up!    
       run: |
           7z e RetroArch_Qt.7z -y
-          7z a retroarch-linux-x86-qt.zip * -y
-          7z t retroarch-linux-x86-qt.zip -y
+          rm -rf RetroArch_Qt.7z
+          7z a retroarch-linux-x86-qt-weekly.zip * -y
     - uses: josephbmanley/butler-publish-itchio-action@master
       name: deploy to itch.io
       env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: linux-x86-qt
+          CHANNEL: linux-x86-qt-weekly
           ITCH_GAME: RetroArchTest
           ITCH_USER: gadsby
-          PACKAGE: retroarch-linux-x86-qt.zip                              
+          PACKAGE: retroarch-linux-x86-qt-weekly.zip                              
