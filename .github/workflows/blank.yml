@@ -49,7 +49,7 @@ jobs:
           CHANNEL: windowsx32-weekly
           ITCH_GAME: RetroArchTest
           ITCH_USER: gadsby
-          PACKAGE: retroarch-windows-x32.zip
+          PACKAGE: retroarch-windows-x32-weekly.zip
     - name: linux x64
       run: |
           rm -rf *
