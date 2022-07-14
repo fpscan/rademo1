@@ -15,7 +15,7 @@ jobs:
     
     steps:
     - name: windows x64
-      run: wget http://buildbot.libretro.com/stable/${{ github.event.inputs.logLevel }}/windows/x86_64/RetroArch.7z
+      run: wget http://buildbot.libretro.com/stable/${{ github.event.inputs.version }}/windows/x86_64/RetroArch.7z
     - name: Zip it up!    
       run: |
           7z e RetroArch.7z -y
