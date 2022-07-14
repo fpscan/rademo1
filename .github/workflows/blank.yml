@@ -28,5 +28,95 @@ jobs:
           CHANNEL: windows
           ITCH_GAME: RetroArchTest
           ITCH_USER: gadsby
-          PACKAGE: retroarch-windows-weekly.zip
-          VERSION: ${{ github.event.inputs.logLevel }}                           
+          PACKAGE: retroarch-windows.zip
+          VERSION: ${{ github.event.inputs.version }}
+    - name: windows x32
+      run: |
+          rm -rf * 
+          wget http://buildbot.libretro.com/stable/${{ github.event.inputs.version }}/windows/x8664/RetroArch.7z
+    - name: Zip it up!    
+      run: |
+          7z e RetroArch.7z -y
+          rm -rf RetroArch.7z
+          7z a retroarch-windows-x32.zip * -y
+    - uses: josephbmanley/butler-publish-itchio-action@master
+      name: deploy to itch.io
+      env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: windowsx32
+          ITCH_GAME: RetroArchTest
+          ITCH_USER: gadsby
+          PACKAGE: retroarch-windows-x32.zip
+          VERSION: ${{ github.event.inputs.version }}
+    - name: linux x64
+      run: |
+          rm -rf *
+          wget http://buildbot.libretro.com/stable/${{ github.event.inputs.version }}/linux/x86_64/RetroArch.7z
+    - name: Zip it up!    
+      run: |
+          7z e RetroArch.7z -y
+          rm -rf RetroArch.7z
+          7z a retroarch-linux-x86_64.zip * -y
+    - uses: josephbmanley/butler-publish-itchio-action@master
+      name: deploy to itch.io
+      env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: linux-x86_64
+          ITCH_GAME: RetroArchTest
+          ITCH_USER: gadsby
+          PACKAGE: retroarch-linux-x86_64.zip
+          VERSION: ${{ github.event.inputs.version }}
+    - name: linux x64-qt
+      run: |
+          rm -rf *
+          wget http://buildbot.libretro.com/stable/${{ github.event.inputs.version }}/linux/x86_64/RetroArch_Qt.7z
+    - name: Zip it up!    
+      run: |
+          7z e RetroArch_Qt.7z -y
+          rm -rf RetroArch_Qt.7z
+          7z a retroarch-linux-x86_64-qt.zip * -y
+    - uses: josephbmanley/butler-publish-itchio-action@master
+      name: deploy to itch.io
+      env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: linux-x86_64-qt
+          ITCH_GAME: RetroArchTest
+          ITCH_USER: gadsby
+          PACKAGE: retroarch-linux-x86_64-qt.zip
+          VERSION: ${{ github.event.inputs.version }}
+    - name: linux x86
+      run: |
+          rm -rf *
+          wget http://buildbot.libretro.com/stable/${{ github.event.inputs.version }}/linux/x86/RetroArch.7z
+    - name: Zip it up!    
+      run: |
+          7z e RetroArch.7z -y
+          rm -rf RetroArch.7z
+          7z a retroarch-linux-x86.zip * -y
+    - uses: josephbmanley/butler-publish-itchio-action@master
+      name: deploy to itch.io
+      env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: linux-x86
+          ITCH_GAME: RetroArchTest
+          ITCH_USER: gadsby
+          PACKAGE: retroarch-linux-x86.zip
+          VERSION: ${{ github.event.inputs.version }}
+    - name: linux x86-qt
+      run: |
+          rm -rf *
+          wget http://buildbot.libretro.com/stable/${{ github.event.inputs.version }}/linux/x86/RetroArch_Qt.7z
+    - name: Zip it up!    
+      run: |
+          7z e RetroArch_Qt.7z -y
+          rm -rf RetroArch_Qt.7z
+          7z a retroarch-linux-x86-qt.zip * -y
+    - uses: josephbmanley/butler-publish-itchio-action@master
+      name: deploy to itch.io
+      env:
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: linux-x86-qt
+          ITCH_GAME: RetroArchTest
+          ITCH_USER: gadsby
+          PACKAGE: retroarch-linux-x86-qt.zip
+          VERSION: ${{ github.event.inputs.version }}                              
