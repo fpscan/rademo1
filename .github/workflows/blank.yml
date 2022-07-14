@@ -83,7 +83,7 @@ jobs:
           CHANNEL: linux-x86_64-qt-weekly
           ITCH_GAME: RetroArchTest
           ITCH_USER: gadsby
-          PACKAGE: retroarch-linux-x86_64-qt.zip
+          PACKAGE: retroarch-linux-x86_64-qt-weekly.zip
     - name: linux x86
       run: |
           rm -rf *
