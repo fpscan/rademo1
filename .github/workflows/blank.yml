@@ -39,7 +39,7 @@ jobs:
           CHANNEL: windows-cores
           ITCH_GAME: RetroArchTest
           ITCH_USER: gadsby
-          PACKAGE: RetroArch_cores.zip
+          PACKAGE: RetroArch_cores.7z
           VERSION: ${{ github.event.inputs.version }}          
     - name: windows x32
       run: |
