@@ -33,7 +33,7 @@ jobs:
     - name: windows x32
       run: |
           rm -rf * 
-          wget http://buildbot.libretro.com/stable/${{ github.event.inputs.version }}/windows/x8664/RetroArch.7z
+          wget http://buildbot.libretro.com/stable/${{ github.event.inputs.version }}/windows/x86/RetroArch.7z
     - name: Zip it up!    
       run: |
           7z e RetroArch.7z -y
